@@ -99,6 +99,7 @@ public class SSDPSearchResponseSocketList extends Vector
 					continue;
 				}
 				add(socket);
+				return true;
 			}
 		}catch (Exception e) {
 			stop();
@@ -106,7 +107,7 @@ public class SSDPSearchResponseSocketList extends Vector
 			clear();
 			return false;
 		}
-		return true;
+		return false;
 	}
 
 	public boolean open() 
