@@ -96,7 +96,7 @@ public class SSDPSearchResponseSocketList extends Vector
 				SSDPSearchResponseSocket socket = new SSDPSearchResponseSocket(bindAddresses[j], port);
 				if (socket.getDatagramSocket() == null){
 					log.e("SSDPSearchResponseSocket.getSocket() == null!!!");
-					return false;
+					continue;
 				}
 				add(socket);
 			}
