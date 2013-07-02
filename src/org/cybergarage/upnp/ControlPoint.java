@@ -242,12 +242,30 @@ public class ControlPoint implements HTTPRequestListener
 		}
 		
 	}
+	
+	private boolean isValidLocation(String location) {
+		 if (location == null || location.length() < 1) {
+			 return false;
+		 }
+
+		 int pos = location.indexOf("http://[");
+		 if (pos >= 0) {
+			 return false;
+		 }
+		 return true;
+	}
+
 
 	private synchronized void addDevice(SSDPPacket ssdpPacket)
 	{
 		if (ssdpPacket.isRootDevice() == false)
 			return;
 			
+		if (!isValidLocation(ssdpPacket.getLocation())){
+			log.e("ssdpPacket.getLocation() = " + ssdpPacket.getLocation() + ", so drop it!!!");
+			return ;
+		}
+		
 		String usn = ssdpPacket.getUSN();
 		String udn = USN.getUDN(usn);
 		Device dev = getDevice(udn);
