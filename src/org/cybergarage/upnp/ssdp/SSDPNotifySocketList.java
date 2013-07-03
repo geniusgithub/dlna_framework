@@ -72,6 +72,19 @@ public class SSDPNotifySocketList extends Vector
 	////////////////////////////////////////////////
 	//	Methods
 	////////////////////////////////////////////////
+
+	public boolean isValidAddress(String address){
+		if (address == null || address.length() < 1){
+			return false;
+		}
+		
+		int pos = address.indexOf(':');
+		if (pos == -1){
+			return true;
+		}
+		
+		return false;
+	}
 	
 	public boolean open(){
 	
@@ -91,13 +104,19 @@ public class SSDPNotifySocketList extends Vector
 		}		
 		
 		for (int i = 0; i < bindAddresses.length; i++) {
+			if (!isValidAddress(bindAddresses[i])){
+				log.e("ready to create SSDPNotifySocket bindAddresses = " + bindAddresses[i]+ ", it's invalid so drop it!!!" );
+				continue;
+			}
 			if(bindAddresses[i]!=null){
 				SSDPNotifySocket ssdpNotifySocket = new SSDPNotifySocket(bindAddresses[i]);
 				if (ssdpNotifySocket.getSocket() == null){
 					log.e("ssdpNotifySocket.getSocket() == null!!!");
 					return false;
 				}
+				log.i("ssdpNotifySocket create success!!!bindAddresses = " + bindAddresses[i]);
 				add(ssdpNotifySocket);
+				return true;
 			}
 		}
 		return true;

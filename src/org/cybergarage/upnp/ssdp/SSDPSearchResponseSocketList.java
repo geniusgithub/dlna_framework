@@ -76,6 +76,20 @@ public class SSDPSearchResponseSocketList extends Vector
 	//	Methods
 	////////////////////////////////////////////////
 	
+	public boolean isValidAddress(String address){
+		if (address == null || address.length() < 1){
+			return false;
+		}
+		
+		int pos = address.indexOf(':');
+		if (pos == -1){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
 	public boolean open(int port){
 		InetAddress[] binds=this.binds ;
 		String[] bindAddresses;
@@ -92,12 +106,17 @@ public class SSDPSearchResponseSocketList extends Vector
 			}
 		}		
 		try {
-			for (int j = 0; j < bindAddresses.length; j++) {				
+			for (int j = 0; j < bindAddresses.length; j++) {	
+				if (!isValidAddress(bindAddresses[j])){
+					log.e("ready to create SSDPSearchResponseSocket bindAddresses = " + bindAddresses[j]+ ", it's invalid so drop it!!!" );
+					continue;
+				}
 				SSDPSearchResponseSocket socket = new SSDPSearchResponseSocket(bindAddresses[j], port);
 				if (socket.getDatagramSocket() == null){
 					log.e("SSDPSearchResponseSocket.getSocket() == null!!!");
 					continue;
 				}
+				log.i("SSDPSearchResponseSocket create success!!!bindAddresses = " + bindAddresses[j]);
 				add(socket);
 				return true;
 			}
