@@ -540,7 +540,7 @@ public class ControlPoint implements HTTPRequestListener
 	{	
 		if (packet.isRootDevice() == true) {
 			if (packet.isAlive() == true){
-		//		log.e("is Alive message , packet = " + packet.toString());
+			//	log.e("is Alive message , packet = " + packet.toString());
 				addDevice(packet);
 			}else if (packet.isByeBye() == true){ 
 				log.e("is byebye message , packet = "+ packet.toString());
@@ -555,7 +555,7 @@ public class ControlPoint implements HTTPRequestListener
 	public void searchResponseReceived(SSDPPacket packet)
 	{		
 		if (packet.isRootDevice() == true){
-		//	log.e("searchResponseReceived SSDPPacket = \n" + packet.toString());
+		//s	log.e("searchResponseReceived SSDPPacket = \n" + packet.toString());
 			addDevice(packet);
 		}
 		

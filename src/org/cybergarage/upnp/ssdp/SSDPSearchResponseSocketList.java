@@ -105,6 +105,11 @@ public class SSDPSearchResponseSocketList extends Vector
 				bindAddresses[n] = HostInterface.getHostAddress(n);
 			}
 		}		
+		
+		boolean flag = false;
+		for(int k = 0; k < bindAddresses.length; k++){
+			log.e("bindAddresses k = " + k + ", addr = " + bindAddresses[k]);
+		}
 		try {
 			for (int j = 0; j < bindAddresses.length; j++) {	
 				if (!isValidAddress(bindAddresses[j])){
@@ -118,7 +123,8 @@ public class SSDPSearchResponseSocketList extends Vector
 				}
 				log.i("SSDPSearchResponseSocket create success!!!bindAddresses = " + bindAddresses[j]);
 				add(socket);
-				return true;
+				flag = true;
+				continue;
 			}
 		}catch (Exception e) {
 			stop();
@@ -126,7 +132,7 @@ public class SSDPSearchResponseSocketList extends Vector
 			clear();
 			return false;
 		}
-		return false;
+		return flag;
 	}
 
 	public boolean open() 

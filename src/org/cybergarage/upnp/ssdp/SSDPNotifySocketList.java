@@ -102,7 +102,7 @@ public class SSDPNotifySocketList extends Vector
 				bindAddresses[n] = HostInterface.getHostAddress(n);
 			}
 		}		
-		
+
 		for (int i = 0; i < bindAddresses.length; i++) {
 			if (!isValidAddress(bindAddresses[i])){
 				log.e("ready to create SSDPNotifySocket bindAddresses = " + bindAddresses[i]+ ", it's invalid so drop it!!!" );
@@ -116,7 +116,7 @@ public class SSDPNotifySocketList extends Vector
 				}
 				log.i("ssdpNotifySocket create success!!!bindAddresses = " + bindAddresses[i]);
 				add(ssdpNotifySocket);
-				return true;
+				continue;
 			}
 		}
 		return true;
